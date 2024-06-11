@@ -147,24 +147,26 @@ const ServiceItem = ({service, establishment, employees, isAuthenticated}:Servic
     return (
 			<Card>
 				<CardContent className="p-4 w-full">
-					<div className="flex gap-4 items-center w-full">
-						<div className="relative min-h-[120px] min-w-[120px] max-h-[120px] max-w-[120px]">
-							<Image
-								src={service.imageUrl}
-								fill
-								alt={service.name}
-								style={{
-									objectFit: "cover",
-								}}
-								className="rounded-lg"
-							/>
+					<div>
+						<div className="flex gap-4 items-center w-full">
+							<div className="relative min-h-[100px] min-w-[100px] max-h-[100px] max-w-[100px]">
+								<Image
+									src={service.imageUrl}
+									fill
+									alt={service.name}
+									style={{
+										objectFit: "cover",
+									}}
+									className="rounded-lg"
+								/>
+							</div>
+							<div className="flex flex-col w-full ">
+								<h2 className="font-bold">{service.name}</h2>
+								<p className="text-sm text-gray-400 mb-2">{service.description}</p>
+								<p className="text-sm text-gray-400">{`${service.timeSpend} minutos`}</p>
+							</div>
 						</div>
-						<div className="flex flex-col w-full ">
-							<h2 className="font-bold">{service.name}</h2>
-							<p className="text-sm text-gray-400">{service.description}</p>
-							<p className="text-sm text-gray-400">{`${service.timeSpend} minutos`}</p>
-
-							<div className="flex items-center justify-between mt-3">
+						<div className="flex items-center justify-around mt-3">
 								<p className="text-primary text-sm font-bold">
 									{Intl.NumberFormat("pt-BR", {
 										style: "currency",
@@ -319,7 +321,6 @@ const ServiceItem = ({service, establishment, employees, isAuthenticated}:Servic
 									</SheetContent>
 								</Sheet>
 							</div>
-						</div>
 					</div>
 				</CardContent>
 			</Card>
