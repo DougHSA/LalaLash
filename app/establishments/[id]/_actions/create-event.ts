@@ -61,15 +61,15 @@ export const createCalendarEvent = async (booking?: Prisma.BookingGetPayload<{
         description: booking.service?.description
     }
     
-    calendar.events.insert({
-        auth: authGoogle,
-        calendarId: 'primary',
-        requestBody: event
-    }, function(err, event) {
-        if (err) {
-        console.log('There was an error contacting the Calendar service: ' + err);
-        return;
-        }
-        console.log('Event created: %s', event.htmlLink);
-    });
+    // calendar.events.insert({
+    //     auth: authGoogle,
+    //     calendarId: 'primary',
+    //     requestBody: event
+    // }, function(err: string, event: { htmlLink: any; }) {
+    //     if (err) {
+    //     console.log('There was an error contacting the Calendar service: ' + err);
+    //     return;
+    //     }
+    //     console.log('Event created: %s', event.htmlLink);
+    // });
 }
