@@ -7,7 +7,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "./ui
 import { Avatar, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { hasManagerEmail } from "../_actions/has-manager-email";
+import { hasEmployeeEmail, hasManagerEmail } from "../_actions/has-email";
 import { Manager } from "@prisma/client";
 import { getEstablishmentId } from "../_actions/get-establishment-id";
 import { Separator } from "./ui/separator";
@@ -17,20 +17,22 @@ const SideMenu = () => {
     const handleLogoutClick = () => signOut(); 
     const handleLoginClick = () => signIn("google"); 
     const [isManager, setIsManager] = useState<Boolean>();
-    const [establishmentId, setEstablishmentId] = useState<string>()
+    const [isEmployee, setIsEmployee] = useState<Boolean>();
+    const [establishmentId, setEstablishmentId] = useState<string>();
 
     useEffect(()=>{
         if(!data?.user)
             return;
         const refreshEstablishments = async () =>{
             setIsManager(await hasManagerEmail(data.user!.email!));
+            setIsEmployee(await hasEmployeeEmail(data.user!.email!));
             const establishmentId = await getEstablishmentId(data.user?.email!)
-            if(establishmentId && isManager)
+            if(establishmentId && isEmployee)
                 setEstablishmentId(establishmentId);
         };
         refreshEstablishments();
 
-    },[data, isManager]);
+    },[data, isEmployee]);
     return (
         <>
             <SheetHeader className="p-5 text-left border-b border-solid border-secondary">
@@ -79,16 +81,18 @@ const SideMenu = () => {
                         </Link>
                     </Button>
                 )}
-                {data?.user && isManager && establishmentId &&(
+                {data?.user && isEmployee && establishmentId &&(
                     <>
                         <Separator />
                         <div className="flex flex-col gap-3">
-                            <Button variant="outline" className="justify-start" asChild>
-                                <Link href="/settings">
-                                    <SettingsIcon size={18} className="mr-2"/>
-                                    Configurar Horários
-                                </Link>
-                            </Button>
+                            {isManager && (
+                                <Button variant="outline" className="justify-start" asChild>
+                                    <Link href="/settings">
+                                        <SettingsIcon size={18} className="mr-2"/>
+                                        Configurar Horários
+                                    </Link>
+                                </Button>
+                            )}
                             <Button variant="outline" className="justify-start" asChild>
                                 <Link href={`/bookings/${establishmentId}`}>
                                     <CalendarIcon size={18} className="mr-2"/>
@@ -97,7 +101,6 @@ const SideMenu = () => {
                             </Button>
                         </div>
                     </>
-
                 )}
             </div>
         </>
