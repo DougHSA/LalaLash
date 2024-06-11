@@ -65,7 +65,7 @@ export default async function Home() {
 		<div>
 			<Header />
 			<div className="px-5 pt-5">
-				<h2 className="text-xl font-bold text-muted">
+				<h2 className="text-xl font-bold text-primary">
 					{session?.user
 						? <p>Olá, {session.user.name?.split(" ")[0]}!<br/> Vamos dar uma paginada no visual hoje?</p>
 						: `Olá, vamos dar uma paginada no visual hoje?`}
