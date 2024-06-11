@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { hasManagerEmail } from "../_actions/has-manager-email";
 import { Manager } from "@prisma/client";
 import { getEstablishmentId } from "../_actions/get-establishment-id";
+import { Separator } from "./ui/separator";
 
 const SideMenu = () => {
     const {data} = useSession();
@@ -79,20 +80,23 @@ const SideMenu = () => {
                     </Button>
                 )}
                 {data?.user && isManager && establishmentId &&(
-                    <div className="flex flex-col gap-3  h-4/6 justify-end">
-                        <Button variant="outline" className="justify-start" asChild>
-                            <Link href="/settings">
-                                <SettingsIcon size={18} className="mr-2"/>
-                                Configurar Horários
-                            </Link>
-                        </Button>
-                        <Button variant="outline" className="justify-start" asChild>
-                            <Link href={`/bookings/${establishmentId}`}>
-                                <CalendarIcon size={18} className="mr-2"/>
-                                Próximos Agendamentos
-                            </Link>
-                        </Button>
-                    </div>
+                    <>
+                        <Separator />
+                        <div className="flex flex-col gap-3">
+                            <Button variant="outline" className="justify-start" asChild>
+                                <Link href="/settings">
+                                    <SettingsIcon size={18} className="mr-2"/>
+                                    Configurar Horários
+                                </Link>
+                            </Button>
+                            <Button variant="outline" className="justify-start" asChild>
+                                <Link href={`/bookings/${establishmentId}`}>
+                                    <CalendarIcon size={18} className="mr-2"/>
+                                    Próximos Agendamentos
+                                </Link>
+                            </Button>
+                        </div>
+                    </>
 
                 )}
             </div>
