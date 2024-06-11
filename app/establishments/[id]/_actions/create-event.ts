@@ -1,6 +1,7 @@
 "use server";
 
 import { authOptions } from "@/app/_lib/auth";
+import { db } from "@/app/_lib/prisma";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { google } from "googleapis";
@@ -16,15 +17,11 @@ export const createCalendarEvent = async (booking?: Prisma.BookingGetPayload<{
     if(!booking)
         return;
     const session = await getServerSession(authOptions);
-    const authGoogle = new google.auth.GoogleAuth({
-        scopes: ['https://www.googleapis.com/auth/calendar'],
-        credentials:{
-            private_key: process.env.GOOGLE_API_KEY as string, // API Key
-            client_email: session?.user?.email as string
+    const user = db.user.findUnique({
+        where:{
+            id: booking.userId
         }
     });
-    const authClient = await authGoogle.getClient();    
-    const accessToken = authClient.credentials.access_token;
     const calendar = google.calendar('v3');
     const startTime = booking.date;
     const endTime = booking.date;
