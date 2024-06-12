@@ -1,12 +1,7 @@
-import Image from "next/image";
 import { format, isFuture } from "date-fns";
 import Header from "../_components/header";
 import { ptBR } from "date-fns/locale";
-import Search from "./_components/search";
-import BookingItem from "../_components/booking-item";
-import EstablishmentItem from "./_components/establishment-item";
 import { db } from "../_lib/prisma";
-import { Establishment, Booking } from "@prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../_lib/auth";
 import EstablishmentInfo from "../establishments/[id]/_components/establishment-info";
