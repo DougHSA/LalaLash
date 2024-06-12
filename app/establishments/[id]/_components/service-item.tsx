@@ -189,7 +189,7 @@ const ServiceItem = ({service, establishment, employees, isAuthenticated}:Servic
 												selected={date}
 												onSelect={handleDateClick}
 												className=""
-												fromDate={addDays(new Date(), 1)}
+												fromDate={new Date()}
 												locale={ptBR}
 												styles={{
 													head_cell: {

@@ -18,15 +18,6 @@ const EstablishmentDetailsPage = async ({ params }: EstablishmentDetailsPageProp
   }
   const [session, establishment] = await Promise.all([
     getServerSession(authOptions),
-
-  //     db.employee.findMany({ 
-  //   where: { 
-  //     establishmentId: params?.id 
-  //   },
-  //   include:{
-  //     employeeServices: true,
-  //   }
-  // }),
   db.establishment.findUnique({
     where: {
       id: params.id,
